@@ -7,8 +7,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      //based on environmemt set target
       '/api': {
-        target: 'http://localhost:3000',
+        target: process.env.NODE_ENV === 'production' 
+        ? 'https://google-grive-1.onrender.com'
+        : 'http://localhost:3000',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

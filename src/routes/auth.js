@@ -45,8 +45,9 @@ router.get(
     // setTokenCookie(res, token);
 
     // Redirect to frontend with success message
-    console.log("Redirecting to:", process.env.CLIENT_URL || "http://localhost:3000");
-    res.redirect(process.env.CLIENT_URL || "http://localhost:3000");
+    res.redirect('/');
+    // console.log("Redirecting to:", process.env.CLIENT_URL || "http://localhost:3000");
+    // res.redirect(process.env.CLIENT_URL || "http://localhost:3000");
   }
 );
 
