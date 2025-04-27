@@ -15,7 +15,7 @@ require('./config/passport');
 
 const app = express();
 
-app.set('trust proxy', 1);
+app.set('trust proxy', 2);
 
 // Middleware
 app.use(express.json());
