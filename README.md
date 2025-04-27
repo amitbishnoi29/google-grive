@@ -2,6 +2,9 @@
 
 A Node.js application that mimics the core functionalities of Google Drive, allowing users to authenticate with Google and manage their files.
 
+## Repository Link
+[GitHub Repository](https://github.com/amitbishnoi29/google-grive)
+
 ## Features
 
 - Google OAuth authentication
@@ -9,6 +12,7 @@ A Node.js application that mimics the core functionalities of Google Drive, allo
 - File search functionality
 - Secure file storage
 - User session management
+- Modern React frontend with responsive design
 
 ## Prerequisites
 
@@ -19,10 +23,12 @@ A Node.js application that mimics the core functionalities of Google Drive, allo
 
 ## Setup
 
+### Backend Setup
+
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd google-drive-clone
+git clone https://github.com/amitbishnoi29/google-grive.git
+cd google-grive
 ```
 
 2. Install dependencies:
@@ -31,7 +37,7 @@ npm install
 ```
 
 3. Create a `.env` file in the root directory with the following variables:
-```
+```env
 PORT=3000
 MONGODB_URI=your-mongodb-uri
 GOOGLE_CLIENT_ID=your-google-client-id
@@ -74,10 +80,29 @@ AWS_BUCKET_NAME=your-s3-bucket-name
    - Create an IAM user with S3 access
    - Get the access key and secret key
 
-6. Start the server:
+6. Start the backend server:
 ```bash
 npm run dev
 ```
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+```bash
+cd google-drive-ui
+```
+
+2. Install frontend dependencies:
+```bash
+npm install
+```
+
+3. Start the frontend development server:
+```bash
+npm run dev
+```
+
+The frontend will run on `http://localhost:5173` by default.
 
 ## API Endpoints
 
