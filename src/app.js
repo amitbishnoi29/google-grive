@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: [
         process.env.CLIENT_URL,
+        'https://google-grive-clone.onrender.com',
         'https://google-grive.vercel.app',
         'http://localhost:4173',
         'http://localhost:3000',
