@@ -30,8 +30,8 @@ app.use(cors({
         'http://localhost:5173'
     ],
     credentials: true,
-    exposedHeaders: ['set-cookie'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    // exposedHeaders: ['set-cookie'],
+    // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
 }));
 
 // Session configuration
