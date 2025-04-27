@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "build": "cd google-drive-ui && npm install && npm run build"
+    "build": "npm install && cd google-drive-ui && npm install && npm run build"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.0.0",
