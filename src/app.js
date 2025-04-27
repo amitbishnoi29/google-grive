@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: [
         process.env.CLIENT_URL,
+        'https://google-grive.vercel.app',
         'http://localhost:4173',
         'http://localhost:3000',
         'http://localhost:5173'
@@ -37,12 +38,12 @@ app.use(session({
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
     cookie: {
-        secure: true,
+        // secure: true,
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
         httpOnly: true,
-        domain: 'google-grive-clone.onrender.com',
+        // domain: 'google-grive-clone.onrender.com',
         sameSite: 'none',
-        path: '/'
+        // path: '/'
     }
 }));
 
