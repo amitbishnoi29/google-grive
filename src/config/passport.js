@@ -8,7 +8,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-    onsole.log('Deserializing user:', id); // Add this line
+    console.log('Deserializing user:', id); // Add this line
     try {
         const user = await User.findById(id);
         done(null, user);
