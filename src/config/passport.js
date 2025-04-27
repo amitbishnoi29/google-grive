@@ -3,10 +3,12 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
 
 passport.serializeUser((user, done) => {
+    console.log('Serializing user:', user); // Add this line
     done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
+    onsole.log('Deserializing user:', id); // Add this line
     try {
         const user = await User.findById(id);
         done(null, user);
@@ -18,7 +20,10 @@ passport.deserializeUser(async (id, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/api/auth/google/callback'
+    callbackURL: process.env.NODE_ENV === 'production'
+    ? 'https://google-grive.onrender.com/api/auth/google/callback'
+    : '/api/auth/google/callback',
+    proxy: true
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         let user = await User.findOne({ googleId: profile.id });
