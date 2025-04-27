@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
@@ -13,9 +14,17 @@ const fileRoutes = require('./routes/files');
 // Import Passport configuration
 require('./config/passport');
 
+
+
 const app = express();
 
-app.set('trust proxy', 2);
+app.use(express.static(path.join(__dirname, '../google-drive-ui/dist')));
+
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../google-drive-ui/dist/index.html'));
+//   });
+
+// app.set('trust proxy', 2);
 
 // Middleware
 app.use(express.json());
@@ -39,22 +48,17 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({mongoUrl: process.env.MONGODB_URI,
-        ttl: 14 * 24 * 60 * 60, // 14 days
-        autoRemove: 'interval',
-        autoRemoveInterval: 10, // Minutes
-        touchAfter: 24 * 3600 // 1 day },
-    }
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URI}
         
     ),
     cookie: {
-        secure: true,
-        domain: process.env.NODE_ENV === 'production' 
-        ? 'google-grive-clone.onrender.com' // No leading dot
-        : undefined,
+        secure: false,
+        // domain: process.env.NODE_ENV === 'production' 
+        // ? 'google-grive-clone.onrender.com' // No leading dot
+        // : undefined,
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
-        httpOnly: true,
-        sameSite: 'none'
+        // httpOnly: true,
+        // sameSite: 'lx'
     }
 }));
 
@@ -87,7 +91,11 @@ app.use('/api/files', fileRoutes);
 //     res.status(500).json({ message: 'Something went wrong!' });
 // });
 
-const PORT = process.env.PORT || 5000;
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../google-drive-ui/dist', 'index.html'))
+  })
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
