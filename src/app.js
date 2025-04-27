@@ -23,7 +23,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: [
         process.env.CLIENT_URL,
-        'https://google-grive.vercel.app',
         'http://localhost:4173',
         'http://localhost:3000',
         'http://localhost:5173'
@@ -40,10 +39,8 @@ app.use(session({
     cookie: {
         // secure: true,
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
-        httpOnly: true,
-        // domain: 'google-grive-clone.onrender.com',
-        sameSite: 'none',
-        // path: '/'
+        // httpOnly: true,
+        sameSite: 'lax'
     }
 }));
 
@@ -65,25 +62,6 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'Something went wrong!' });
 });
-
-app.use((req, res, next) => {
-    console.log('Incoming cookies:', req.headers.cookie);
-    next();
-  });
-  
-  // Log session changes
-  app.use((req, res, next) => {
-    req.session.__lastAction = req.session.__lastAction || '';
-    const changed = req.session.__lastAction !== req.sessionID;
-    if (changed) {
-      console.log('Session changed:', {
-        old: req.session.__lastAction,
-        new: req.sessionID
-      });
-      req.session.__lastAction = req.sessionID;
-    }
-    next();
-  });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
