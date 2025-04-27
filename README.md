@@ -13,6 +13,7 @@ A Node.js application that mimics the core functionalities of Google Drive, allo
 - Secure file storage
 - User session management
 - Modern React frontend with responsive design
+- Static serving of React app through Node.js backend
 
 ## Prerequisites
 
@@ -36,22 +37,33 @@ cd google-grive
 npm install
 ```
 
-3. Create a `.env` file in the root directory with the following variables:
-```env
-PORT=3000
-MONGODB_URI=your-mongodb-uri
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-SESSION_SECRET=your-session-secret
-JWT_SECRET=your-jwt-secret
-NODE_ENV=development
+3. Environment Configuration:
+   - Copy `.env.example` to `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Update the `.env` file with your actual credentials:
+     ```env
+     # Server Configuration
+     PORT=3000
+     NODE_ENV=development
 
-# AWS Configuration
-AWS_ACCESS_KEY_ID=your-aws-access-key-id
-AWS_SECRET_ACCESS_KEY=your-aws-secret-access-key
-AWS_REGION=your-aws-region
-AWS_BUCKET_NAME=your-s3-bucket-name
-```
+     # MongoDB Configuration
+     MONGODB_URI=your-mongodb-uri
+
+     # Google OAuth Configuration
+     GOOGLE_CLIENT_ID=your_google_client_id
+     GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+     # AWS S3 Configuration
+     AWS_ACCESS_KEY_ID=your_aws_access_key_id
+     AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+     AWS_REGION=your_aws_region
+     AWS_BUCKET_NAME=your_s3_bucket_name
+
+     # Session Configuration
+     SESSION_SECRET=your_session_secret
+     ```
 
 4. Set up Google OAuth:
    - Go to the Google Cloud Console
@@ -80,29 +92,40 @@ AWS_BUCKET_NAME=your-s3-bucket-name
    - Create an IAM user with S3 access
    - Get the access key and secret key
 
-6. Start the backend server:
-```bash
-npm run dev
-```
+### Development Setup
 
-### Frontend Setup
-
-1. Navigate to the frontend directory:
+1. Build the React app:
 ```bash
 cd google-drive-ui
-```
-
-2. Install frontend dependencies:
-```bash
 npm install
+npm run build
 ```
 
-3. Start the frontend development server:
+2. Start the Node.js server (from root directory):
 ```bash
 npm run dev
 ```
+This will:
+- Serve the backend API on port 3000
+- Serve the built React app statically
+- Handle all API requests through the same server
 
-The frontend will run on `http://localhost:5173` by default.
+### Production Build
+
+1. From the root directory, run:
+```bash
+npm run build
+```
+This will:
+- Install backend dependencies
+- Install frontend dependencies
+- Build the React app for production
+
+2. Start the production server:
+```bash
+npm start
+```
+This will serve both the backend API and the static React app from the same server.
 
 ## API Endpoints
 
